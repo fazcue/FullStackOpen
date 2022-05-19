@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# FullStackOpen: Part2, exercise: Data for countries
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

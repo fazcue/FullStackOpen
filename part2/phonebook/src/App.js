@@ -12,11 +12,6 @@ const App = () => {
 	const [searchName, setSearchName] = useState('')
 	const [notificationMessage, setNotificationMessage] = useState(null)
 
-	useEffect(() => {
-		personService.getAll()
-			.then((response) => setPersons(response.data))
-	}, [])
-
 	const handleNewName = (event) => {
 		setNewName(event.target.value)
 	}
@@ -38,6 +33,7 @@ const App = () => {
 
 	const handleError = (status, personName) => {
 		let message = `Error ${status}. Please try again`
+
 		if (status === 404) {
 			message = `Error: ${personName} was previoulsy removed from your phonebook's database`
 		}
@@ -55,7 +51,7 @@ const App = () => {
 				.then(() =>
 					setPersons((prev) => [
 						...prev.map((person) => {
-							if (person.id === id) {
+							if (person.id === id) { //update number
 								return { ...person, number: newNumber }
 							}
 							return person
@@ -70,7 +66,7 @@ const App = () => {
 	const addNewPerson = (event) => {
 		event.preventDefault()
 
-		const isAlreadyAdded = persons.find((person) => person.name === newName)
+		const isAlreadyAdded = persons.find(person => person.name === newName)
 
 		//if the person name already exist, notify the user if update number, else save new person
 		if (isAlreadyAdded) {
@@ -110,6 +106,11 @@ const App = () => {
 	const filterContactsList = persons.filter((person) =>
 		person.name.toLowerCase().includes(searchName.toLowerCase())
 	)
+
+	useEffect(() => {
+		personService.getAll()
+			.then((response) => setPersons(response.data))
+	}, [])
 
 	return (
 		<div>
